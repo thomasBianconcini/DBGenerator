@@ -1,0 +1,11 @@
+./DBGenartor.sh 
+
+./project.sh -p 8080
+
+docker exec -it distracted_hypatia /bin/bash
+
+sudo lsof -i :5000
+sudo kill 9712
+sudo systemctl restart docker
+
+sudo systemctl restart docker
