@@ -5,19 +5,32 @@ from faker import Faker
 import pandas as pd
 import os 
 import subprocess
-
 import csv
 
 app = Flask(__name__)
 fake = Faker()
 
-
 def import_database():
-   print("ciao")
+   
+   conn = sqlite3.connect('fakeDB.db')
+   c = conn.cursor()
+   schemaUrl= input("Inserisci path file \n")
 
+   with open(schemaUrl,"r") as file:
+       sqlite_file=file.read()
+       commands= sqlite_file.split(";")
+       for command in commands:
+           command=command + ";" 
+           if "sqlite_sequence" not in command:
+            c.execute(command)
+            conn.commit()
+    
+
+   
 def create_database():
     conn = sqlite3.connect('fakeDB.db')
     c = conn.cursor()
+   
     comandi_sql = [
     '''CREATE TABLE IF NOT EXISTS Utenti (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -93,7 +106,7 @@ def create_database():
     # Return the table as an HTML response
     
 if __name__ == '__main__':
-    DB_esitente = input("Hai un DB? S o N")
+    DB_esitente = input("Hai un DB? S o N \n")
     if DB_esitente == "N":
        print("creating DB")
        create_database()
@@ -102,7 +115,7 @@ if __name__ == '__main__':
         print("importing DB")
     #comando = "docker cp test:/app/people.db /home/thomas/Desktop/progettoCyber/people.db"
     #output = subprocess.run(comando, shell=True)
-    
+  
     #app.run(debug=True, host='0.0.0.0')
 
 
