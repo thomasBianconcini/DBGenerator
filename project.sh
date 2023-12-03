@@ -9,6 +9,6 @@ done
 
 echo $port
 
-sudo docker run -p $port:5000 -e HOST="0.0.0.0" -v /home/thomas/Desktop/progettoCyber:/app fakedb
+sudo docker run -p $port:5000 -e HOST="0.0.0.0" -v /home/thomas/Desktop/cybertest:/app fakedb
 
 

@@ -13,4 +13,4 @@ EXPOSE 5000
 #RUN my_db.py
 #Command to run your Flask app
 
-CMD ["sqlite_web","-H", "0.0.0.0", "-p", "5000", "people.db"]
+CMD ["sqlite_web","-H", "0.0.0.0", "-p", "5000", "fakeDB.db"]
