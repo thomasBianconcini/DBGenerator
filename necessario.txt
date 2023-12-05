@@ -1,4 +1,4 @@
-./DBGenartor.sh 
+./DBGenerator.sh 
 
 ./project.sh -p 8080
 

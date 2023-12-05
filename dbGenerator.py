@@ -1,13 +1,13 @@
-from flask import Flask, jsonify
+#from flask import Flask, jsonify
 import sqlite3
 
 from faker import Faker
-import pandas as pd
+#import pandas as pd
 import os 
 import subprocess
 import csv
 
-app = Flask(__name__)
+#app = Flask(__name__)
 fake = Faker()
 
 def import_database():
@@ -106,7 +106,7 @@ def create_database():
     # Return the table as an HTML response
     
 if __name__ == '__main__':
-    DB_esitente = input("Hai un DB? S o N \n")
+    DB_esitente = input("Hai un DB? Y o N \n")
     if DB_esitente == "N":
        print("creating DB")
        create_database()
