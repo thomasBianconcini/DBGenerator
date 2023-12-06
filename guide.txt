@@ -1,0 +1,21 @@
+
+Comando per creare/importare il DB e buildare il docker:
+./buildDBGenerator.sh 
+
+Comando per runnare il docker: (-p specifica la porta su cui rendere online il servizio, default=8080)
+./runDB.sh -p 8080
+
+docker exec -it distracted_hypatia /bin/bash
+
+sudo lsof -i :5000
+sudo kill 9712
+sudo systemctl restart docker
+
+sudo systemctl restart docker
+
+comandi per esportare db:
+
+sqlite3
+    .output c:/path/to/schema.sql
+    .schema
+    .quit
