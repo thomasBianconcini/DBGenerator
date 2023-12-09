@@ -53,13 +53,23 @@ print(prompt)
 output = llm(prompt)
 
 # Processing the output to extract only table names
-table_names = output.replace("[]","").replace("]","").replace("\"","").strip().split(",")
+table_names = output.replace("[","").replace("]","").replace("\"","").strip().split(",")
 
-print("Generated Table Names:")
-for name in table_names:
-    print(name)
+
+clean_att = []
 print("Starting attribute generation...")
 for name in table_names:
-    prompt_att = "Generate a list of attribute names related to the table "+ name+". . The length of the list must be "+natt + "."
+    prompt_att = "Generate a list of attribute names related to the table "+ name+". The length of the list must be "+natt + "."
     output_att=llm(prompt_att)
+    clean_att.append(output_att.replace("[","").replace("]","").replace("\"","").strip().split(","))
     print(name)
+
+print("\n Generated Table Names:\n")
+for name in table_names:
+    print(name)
+
+
+print("\n Generated  attributes: \n")
+for t in clean_att:
+    for name in t:
+        print(name)
