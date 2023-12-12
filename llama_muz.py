@@ -81,37 +81,31 @@ atts= ""
 print("Generating values to populate the db...\n")
 for index,name in enumerate(table_names):
 
-    prompt = "Generate a list of 8 random user IDs"
+    #prompt = "Generate a list of 8 random user IDs"
 
 
 
- #  prompt = "CONTEXT: I am creating a database. I need data to insert into the tables of the database. An ID is an integer number. a Date is a date of the calendar. QUESTION: Generate a list of values related to the the attributes of the table " + name + ". "
- #   for j,att in enumerate(clean_att[index]):
- #       atts = atts + " " + att
- #       prompt = prompt + "The element " + str(j+1) + " of the list must be an example of " + att + ". "
- #   for i in range(0,2):
- #       prompt = prompt + " The length of the list must be " +natt +"."
- #       print("PROMPT COMPOSTO DINAMICAMENTE: " + prompt)
- #       prompt_val = "Generate a list of values of data to use to populate a row of the table " + name + ". The table has these attributes: "+ atts + " . The length of the list must be " +natt +"."
-    output_val = llm(prompt)
- #       st_rows.append(output_val.replace("[","").replace("]","").replace("\"","").strip().split(","))
- #   values.append(st_rows)
- #   st_rows=[]
+    prompt = "###CONTEXT: I am creating a database. An ID is an integer number. a Date is a date of the calendar. I have the table " + name + "( \n ID INT PRIMARY KEY AUTOINCREMENT "
+    for j,att in enumerate(clean_att[index]):
+        atts = atts + " " + att
+        prompt = prompt + ",\n" + att + " VARCHAR(50)"
+    for i in range(0,2):
+        prompt = prompt + " ###QUESTION: Generate a list of values to insert in the table. The length of the list must be " +natt +"."
+        print("PROMPT COMPOSTO DINAMICAMENTE: " + prompt)
+        prompt_val = "Generate a list of values of data to use to populate a row of the table " + name + ". The table has these attributes: "+ atts + " . The length of the list must be " +natt +"."
+        output_val = llm(prompt)
+        st_rows.append(output_val.replace("[","").replace("]","").replace("\"","").strip().split(","))
+    values.append(st_rows)
+    st_rows=[]
 
     
 
-  #  for att in clean_att[index]:
-  #      prompt = "Generate a list of invented values related to the the attribute " + att + ". The length of the list must be 2."
-  #      output_val = llm(prompt)
-  #      st_rows.append(output_val.replace("[","").replace("]","").replace("\"","").strip().split(","))
-   # for att in st_rows:
-       # for i in range(0,2):
             
     #values.append()
 
          
-    values.append(st_rows)
-    st_rows=[]
+   # values.append(st_rows)
+   # st_rows=[]
 
 for tr in values:
     for v in tr:
