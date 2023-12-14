@@ -55,7 +55,7 @@ def create_database():
     conn = sqlite3.connect('fakeDB.db')
     c = conn.cursor()
     prompt= "Generate a list of table names related to a table users. the first table must be users and the others must be related to users. The length of the list must be " + nt + "."
-    print(prompt)
+    print("\n"+prompt+"\n")
     output = llm(prompt)
 
     # Processing the output to extract only table names
@@ -79,6 +79,7 @@ def create_database():
     for t in clean_att:
         for name in t:
             print(name)
+    print("\n")
 
     values =[]
     st_rows=[]
@@ -90,7 +91,7 @@ def create_database():
         create_t="CREATE TABLE IF NOT EXISTS "
         table_to_crete= name+ " (\n"  + "     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT" #HARDCODATO
         n_att=0
-        
+        attributes= list(set(attributes)) #elimina duplicati
         for attribute in attributes:
             
             if "user" in name:
@@ -108,7 +109,7 @@ def create_database():
             table_to_crete = table_to_crete +",\n     FOREIGN KEY (userID) REFERENCES users(id)"
         table_to_crete = table_to_crete + "\n);"
         create_t= create_t+table_to_crete
-        print(create_t)
+        print(create_t+"\n")
         c.execute(create_t)
         p_att= "["
 
@@ -124,19 +125,16 @@ def create_database():
         for attribute in attributes:
             if not("id" in attribute or "ID" in attribute):
                 filtered_att.append(attribute)
-        print("ATTRIBUTES")
+        print("\nATTRIBUTES")
         print(filtered_att)
-
-        #inutile
-        length_list_att= str(int(ntup)*int(n_att))
-        print(length_list_att)
-
+        print("\n")
+       
         prompt_att = "You have a table of a database: "+ str(table_to_crete) + "  create a list with random real examples. The output must be: "+p_att
-        print(prompt_att)
+        print("\n"+prompt_att+"\n")
         output_att=llm2(prompt_att)
-        elements =  output_att.replace("[","").replace("]","").replace("\"","").replace(" ","").strip().split(",")
+        elements =  output_att.replace("[","").replace("]","").replace("\"","").strip().split(",")
         
-        print("Dati:\n")
+        print("\nDati:\n")
         count=0
         #genera stringa di attributes
         str_att= ",".join(filtered_att)
@@ -169,19 +167,18 @@ def create_database():
                     elif countt == n_att-1 and inx == int(ntup)-1:
                         insert_data= insert_data+ attribute #se sono l'ultimo
                         if rk== True:
-                            insert_data= insert_data +"', '"+ random.randint(1,int(ntup)) #ultimo con rk
+                            insert_data= insert_data +"', '"+ str(random.randint(1,int(ntup))) #ultimo con rk
 
                         insert_data= insert_data+ "' )\n;\n" #se sono l'ultimo
                     elif countt != n_att-1:
                         insert_data= insert_data+ attribute+"', '"
                     else:
+                        if rk== True:
+                            insert_data= insert_data +"', '"+ str(random.randint(1,int(ntup)))
                         insert_data= insert_data+ attribute+"' ),\n" #se sono l'ultimo attribute ma non l'ultima tupla
                     countt=countt+1
-                    
-                      
-
-                
-        print(insert_data)
+                       
+        print("\n\n\n"+insert_data)
         c.execute(insert_data)
     conn.commit()
     conn.close()
