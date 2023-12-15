@@ -26,7 +26,7 @@ The Docker execute the sqlite database and provide a service on the specified po
     -    [dolphin2.1-openorca-7b.Q4_K_M.gguf](https://huggingface.co/TheBloke/Dolphin2.1-OpenOrca-7B-GGUF/blob/main/dolphin2.1-openorca-7b.Q4_K_M.gguf)
     -   [llama-2-7b-chat.Q4_K_M.gguf](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/blob/main/llama-2-7b-chat.Q4_K_M.gguf)
 
-- get Mockaroo API's key by creating an Account on [the official website](at https://www.mockaroo.com/). The key will be available at "My API Key" in My Account section.
+- get Mockaroo API's key by creating an Account on [the official website](https://www.mockaroo.com/). The key will be available at "My API Key" in My Account section.
 
 - in the path_and_api_key.txt file set up the absolute path of the llama.cpp/models/ folder (abs_path/llama.cpp/models/) and the Mockaroo key
 
