@@ -1,2 +1,2 @@
-path=../llama.cpp/models/
-api_key=c1a2daf0
+path=
+api_key=
